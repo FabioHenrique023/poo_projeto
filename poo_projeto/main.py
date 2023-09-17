@@ -1,7 +1,15 @@
-from user import Usuario
+from typing import Union
 
-user = Usuario("Fabio", "Fabio", "123456", "ADM", "fabio@", "0909")
-#user = Usuario()
+from fastapi import FastAPI
 
-user.cadastrar_usario("Cadastrar")
-##user.listar_usuario("Listar")
+app = FastAPI()
+
+
+@app.get("/")
+async def read_root():
+    return {"Hello": "World"}
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
